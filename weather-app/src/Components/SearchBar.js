@@ -39,7 +39,7 @@ const getWeather=()=>{
 
 
   return (
-    <div className="container-fluid d-flex justify-content-center">
+    <div className="container-fluid justify-content-center">
       <div>
         <form onSubmit={(e)=>{
           e.preventDefault();
@@ -61,7 +61,7 @@ const getWeather=()=>{
             <span className="list"></span>
         </form>
       </div>
-      <div>
+      <div className="mt-5"> 
         {weather && <WeatherCard data={weather}/>}
       </div>
     </div>
