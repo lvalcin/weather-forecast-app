@@ -13,6 +13,9 @@ const WeatherCard = ({data}) =>{
     const humidity = data.list[0].main.humidity
     const precipitation = data.list[0].probability_of_precipitation;
     const wind = data.list[0].wind;
+    const weatherIcon = data.list[0].weather[0].icon;
+     console.log(weatherIcon, "WEATHER!!!!!");
+
     const weatherSummary= `The weather in ${data.city.name} 
                         is currently ${data.list[0].weather[0].description} 
                         with a temperature of ${tempInFahrenheit}°F, 
@@ -25,9 +28,14 @@ const WeatherCard = ({data}) =>{
     return(
         <div>
             <div className="card my-4 shadow-sm" style={{width: "18rem"}}>
-            {/* <img src="..." class="card-img-top" alt="..."> */}
             <div className="card-body">
                 <h1 className="fw-bold display-4 card-title">{data.city.name}</h1>
+                {weatherIcon && (
+                    <img src={weatherIcon} alt="weather icon" style={{width:"80px"}}/>
+                )}
+               
+
+
                 <h2 className="card-text fs-1">{tempInFahrenheit}°F</h2>
                 <p className="card-text text-capitalize fs-5">{data.list[0].weather[0].description} </p>
                 { weatherDetails && (
@@ -40,7 +48,6 @@ const WeatherCard = ({data}) =>{
                 </button>
             </div>
             </div>
-
         </div>
     )
 }
