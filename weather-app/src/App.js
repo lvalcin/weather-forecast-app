@@ -1,5 +1,6 @@
 import React from "react";
 import SearchBar from "./Components/SearchBar";
+import WeatherCard from "./Components/WeatherCard";
 
 const App = ()=> {
   return (
@@ -8,6 +9,9 @@ const App = ()=> {
       <p>Search for a city to get the weather forecast!</p>
       <div>
         <SearchBar />
+      </div>
+      <div>
+        <WeatherCard />
       </div>
     </div>
   );
