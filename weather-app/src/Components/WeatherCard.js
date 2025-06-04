@@ -6,7 +6,8 @@ const WeatherCard = ({data}) =>{
         return <div>No weather data to display.</div>;
       }
       return(
-         <div className="d-flex flex-wrap justify-content-center">
+         <div className="d-flex overflow-auto gap-3 py-3">
+            {/* .slice(0,6) limits the forecast to the next upcoming 6 data list and then maps through them with .map*/}
      {data.list.slice(0,6).map((forecast,index)=>{
     const tempInKelvin = forecast.main.temprature;
     const tempInFahrenheit = ((tempInKelvin - 273.15) * 9/5 + 32).toFixed(1); //converst temp from Kelvin to Fahrenheit
@@ -17,7 +18,21 @@ const WeatherCard = ({data}) =>{
     const precipitation = forecast.probability_of_precipitation;
     const wind = forecast.wind;
     const weatherIcon = forecast.weather[0].icon;
-     console.log(weatherIcon, "WEATHER!!!!!");
+        console.log(weatherIcon, "WEATHER!!!!!");
+    const weatherDate = new Date(forecast.dt_txt); //converts date string from API data to a JS data object
+        console.log(weatherDate, "WEATHER DATE!!!!");
+    const date = weatherDate.toLocaleDateString("en-US", 
+        {weekday: "long",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true})
+        // Using toLocaleString here because it formats both date and time parts.
+        // toLocaleDateString only formats the date (year, month, day, weekday) but ignores time (hour, minute).
+        // So to show weekday, date, and time (hour and minute), toLocaleString is needed.
+        // The options specify the format details like full weekday name, short month, numeric day/year, and 12-hour clock with minutes for AM/PM.
+        // "en-US" formats the date/time in US English style 
 
     const weatherSummary= `${data.city.name} conditions:
                         ${data.list[0].weather[0].description} 
@@ -32,6 +47,7 @@ const WeatherCard = ({data}) =>{
         <div>
             <div className="card my-4 shadow-sm" style={{width: "18rem"}}>
             <div className="card-body">
+                <h5> {date}  </h5>
                 <h1 className="fw-bold display-4 card-title">{data.city.name}</h1>
                 {weatherIcon && (
                     <img src={weatherIcon} alt="weather icon" style={{width:"80px"}}/>
