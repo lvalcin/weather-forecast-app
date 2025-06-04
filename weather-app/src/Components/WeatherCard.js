@@ -5,19 +5,22 @@ const WeatherCard = ({data}) =>{
     if (!data || !data.city){
         return <div>No weather data to display.</div>;
       }
-    const tempInKelvin = data.list[0].main.temprature;
+      return(
+         <div className="d-flex flex-wrap justify-content-center">
+     {data.list.slice(0,6).map((forecast,index)=>{
+    const tempInKelvin = forecast.main.temprature;
     const tempInFahrenheit = ((tempInKelvin - 273.15) * 9/5 + 32).toFixed(1); //converst temp from Kelvin to Fahrenheit
-    const feelsLike = ((data.list[0].main.temprature_feels_like - 273.15) * 9 / 5 + 32).toFixed(1);
-    const maxTemp =((data.list[0].main.temprature_max- 273.15) * 9 / 5 + 32).toFixed(1);
-    const minTemp = ((data.list[0].main.temprature_min- 273.15) * 9 / 5 + 32).toFixed(1);
-    const humidity = data.list[0].main.humidity
-    const precipitation = data.list[0].probability_of_precipitation;
-    const wind = data.list[0].wind;
-    const weatherIcon = data.list[0].weather[0].icon;
+    const feelsLike = ((forecast.main.temprature_feels_like - 273.15) * 9 / 5 + 32).toFixed(1);
+    const maxTemp =((forecast.main.temprature_max- 273.15) * 9 / 5 + 32).toFixed(1);
+    const minTemp = ((forecast.main.temprature_min- 273.15) * 9 / 5 + 32).toFixed(1);
+    const humidity = forecast.main.humidity
+    const precipitation = forecast.probability_of_precipitation;
+    const wind = forecast.wind;
+    const weatherIcon = forecast.weather[0].icon;
      console.log(weatherIcon, "WEATHER!!!!!");
 
-    const weatherSummary= `The weather in ${data.city.name} 
-                        is currently ${data.list[0].weather[0].description} 
+    const weatherSummary= `${data.city.name} conditions:
+                        ${data.list[0].weather[0].description} 
                         with a temperature of ${tempInFahrenheit}°F, 
                         but it feels like ${feelsLike}°F. 
                         The maximum temperature today is ${maxTemp}°F, 
@@ -33,13 +36,14 @@ const WeatherCard = ({data}) =>{
                 {weatherIcon && (
                     <img src={weatherIcon} alt="weather icon" style={{width:"80px"}}/>
                 )}
-               
-
-
+            
                 <h2 className="card-text fs-1">{tempInFahrenheit}°F</h2>
-                <p className="card-text text-capitalize fs-5">{data.list[0].weather[0].description} </p>
+                <p className="card-text text-capitalize fs-5 mb-0">{data.list[0].weather[0].description} </p>
+                <p> <span className="me-5">H:{maxTemp}°F</span> 
+                    <span> L: {minTemp}°F </span>
+                </p>
                 { weatherDetails && (
-                    <p className="card-text text-muted">Summary:{weatherSummary} </p>
+                    <p className="card-text text-muted">{weatherSummary} </p>
                     )}
                 <button className="btn btn-primary"
                 onClick={()=>setWeatherDetails(!weatherDetails)
@@ -50,6 +54,9 @@ const WeatherCard = ({data}) =>{
             </div>
         </div>
     )
+})} 
+</div>
+)
 }
 
 export default WeatherCard;

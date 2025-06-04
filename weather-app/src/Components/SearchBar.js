@@ -14,7 +14,7 @@ const apiKey = process.env.REACT_APP_WEATHER_API_KEY
 
 const getWeather=()=>{
   if (!city) return;
-  const weatherUrl = `https://weather-api167.p.rapidapi.com/api/weather/forecast?place=${encodeURIComponent(city)}&cnt=3&units=standard&type=three_hour&mode=json&lang=en`
+  const weatherUrl = `https://weather-api167.p.rapidapi.com/api/weather/forecast?place=${encodeURIComponent(city)}&cnt=8&units=standard&type=three_hour&mode=json&lang=en`
   
   fetch(weatherUrl, {
     method: "GET",
