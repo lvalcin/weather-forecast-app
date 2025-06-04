@@ -8,14 +8,15 @@ import React, {useState} from "react";
 // - day: "numeric" gives the date number like 1, 2, 3...
 
 const FiveDayForecast = ({data})=>{
-    if(!data || !data.list){
+    console.log(data, "Five day forecast datat!")
+    if(!data || !data.city || !data.list){
         return <div>No daily forecast available </div>
     }
 
     //the logic below: groups the forecast data by date 
     const forecast ={};
     data.list.forEach((forecastItem)=>{
-        const date = new Date(forecastItem.dt_txt).toDateString();
+        const date = forecastItem.dt_txt.split("")[0];
         if (!forecast[date]){
             forecast[date]=[];
         }
@@ -38,19 +39,23 @@ const FiveDayForecast = ({data})=>{
     return(
         <div className ="d-flex overflow-auto py-3">
             {dailyWeather.map((day,index)=>{
-        const date = new Date(day.dt_txt).toLocaleDateString("en-US",{
+        const dateString = new Date(day.dt_txt).toLocaleDateString("en-US",{
             weekday: "short",
             month: "short",
             day: "numeric",
         })
         const weatherIcon = day.weather?.[0]?.icon;
+        const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
         const maxTemp =((day.main.temprature_max- 273.15) * 9 / 5 + 32).toFixed(1);
         const minTemp = ((day.main.temprature_min- 273.15) * 9 / 5 + 32).toFixed(1);
     
         return(
-            <div className="card-bod text-center">
-                <h6> {date}   </h6>
-                <img src ={weatherIcon} alt="weather icon" />
+            <div className="card-body text-center">
+                <h6> {dateString}   </h6>
+                <img src ={weatherIcon} alt="weather icon" 
+                onError={(e)=>{
+                    e.target.src= weatherIconUrl}}
+                    />
                 <p>H:{maxTemp} </p>
                 <p>L:{minTemp} </p>
 
