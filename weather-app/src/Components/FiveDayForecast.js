@@ -8,7 +8,7 @@ import React, {useState} from "react";
 // - day: "numeric" gives the date number like 1, 2, 3...
 
 const FiveDayForecast = ({data})=>{
-    console.log(data, "Five day forecast datat!")
+    console.log(data, "Five day forecast data")
     if(!data ||!data.list){
         return <div>No daily forecast available </div>
     }
@@ -37,7 +37,9 @@ const FiveDayForecast = ({data})=>{
     .slice(0,5); // gets only the next 5 days of forecasts
 
     return(
-        <div className ="d-flex overflow-auto py-3">
+        <div className="container-fluid pb-5">
+            <h1 className= "text-center mb-3"> FIVE DAY FORECAST  </h1> 
+        <div className ="d-flex overflow-auto py-3 justify-content-center">
             {dailyWeather.map((day,index)=>{
         const dateString = new Date(day.dt_txt).toLocaleDateString("en-US",{
             weekday: "short",
@@ -48,6 +50,7 @@ const FiveDayForecast = ({data})=>{
         const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
         const maxTemp =((day.main.temprature_max- 273.15) * 9 / 5 + 32).toFixed(1);
         const minTemp = ((day.main.temprature_min- 273.15) * 9 / 5 + 32).toFixed(1);
+        
     
         return(
             <div key={index} className="card flex-shrink-0 mx-2"
@@ -64,9 +67,9 @@ const FiveDayForecast = ({data})=>{
             </div>  
         </div>
         )
-            })
-            }     
-        </div>
+    })}     
+    </div>
+    </div>
     )
 }
 
