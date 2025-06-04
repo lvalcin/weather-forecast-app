@@ -18,6 +18,7 @@ const WeatherCard = ({data}) =>{
     const precipitation = forecast.probability_of_precipitation;
     const wind = forecast.wind;
     const weatherIcon = forecast.weather[0].icon;
+    // const weatherIconUrl = `https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
         console.log(weatherIcon, "WEATHER!!!!!");
     const weatherDate = new Date(forecast.dt_txt); //converts date string from API data to a JS data object
         console.log(weatherDate, "WEATHER DATE!!!!");
@@ -47,7 +48,7 @@ const WeatherCard = ({data}) =>{
         <div>
             <div className="card my-4 shadow-sm" style={{width: "18rem"}}>
             <div className="card-body">
-                <h5> {date}  </h5>
+                <h6> {date}  </h6>
                 <h1 className="fw-bold display-4 card-title">{data.city.name}</h1>
                 {weatherIcon && (
                     <img src={weatherIcon} alt="weather icon" style={{width:"80px"}}/>

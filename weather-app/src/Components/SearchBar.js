@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import WeatherCard from "./WeatherCard";
-
+import FiveDayForecast from "./FiveDayForecast";
+import { ThreeHourForecast } from "../assets/Data/ThreeHourForecast";
+import { FiveDays } from "../assets/Data/FiveDays";
 
 
 
@@ -14,7 +16,7 @@ const apiKey = process.env.REACT_APP_WEATHER_API_KEY
 
 const getWeather=()=>{
   if (!city) return;
-  const weatherUrl = `https://weather-api167.p.rapidapi.com/api/weather/forecast?place=${encodeURIComponent(city)}&cnt=8&units=standard&type=three_hour&mode=json&lang=en`
+  const weatherUrl = `https://weather-api167.p.rapidapi.com/api/weather/forecast?place=${encodeURIComponent(city)}&cnt=20&units=standard&type=three_hour&mode=json&lang=en`
   
   fetch(weatherUrl, {
     method: "GET",
@@ -26,9 +28,10 @@ const getWeather=()=>{
   })
     .then((response)=>{
       if (!response.ok){
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
+        return ({ThreeHourForecast } || {FiveDays });
+      } else {
       return response.json()
+      }
     })
     .then((data)=>{
       console.log(data, "HERE IS THE DATA !!!!")
@@ -53,7 +56,7 @@ const getWeather=()=>{
             onChange={(e)=>setCity(e.target.value)}
             style={{ borderWidth: "5px" }} 
              />
-            <button className="btn btn-primary btn-primary"type="submit"
+            <button className="btn btn-primary"type="submit"
             //  style={{ borderRadius: "25px" }}
              >
               SUBMIT
@@ -61,8 +64,15 @@ const getWeather=()=>{
             <span className="list"></span>
         </form>
       </div>
+
+      {/* below div displays current weather card for the next 18 hours */}
       <div className="mt-5"> 
         {weather && <WeatherCard data={weather}/>}
+      </div>
+
+      {/* below div displays 5 day forecast */}
+      <div> 
+        {weather && <FiveDayForecast data={weather}/>}
       </div>
     </div>
   );
