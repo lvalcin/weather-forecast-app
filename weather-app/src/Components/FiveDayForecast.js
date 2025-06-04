@@ -9,14 +9,14 @@ import React, {useState} from "react";
 
 const FiveDayForecast = ({data})=>{
     console.log(data, "Five day forecast datat!")
-    if(!data || !data.city || !data.list){
+    if(!data ||!data.list){
         return <div>No daily forecast available </div>
     }
 
     //the logic below: groups the forecast data by date 
     const forecast ={};
     data.list.forEach((forecastItem)=>{
-        const date = forecastItem.dt_txt.split("")[0];
+        const date = forecastItem.dt_txt.split(" ")[0];
         if (!forecast[date]){
             forecast[date]=[];
         }
@@ -50,22 +50,22 @@ const FiveDayForecast = ({data})=>{
         const minTemp = ((day.main.temprature_min- 273.15) * 9 / 5 + 32).toFixed(1);
     
         return(
-            <div className="card-body text-center">
+            <div key={index} className="card flex-shrink-0 mx-2"
+                style={{width: '12rem'}}>
+                <div className="card-body text-center">
                 <h6> {dateString}   </h6>
-                <img src ={weatherIcon} alt="weather icon" 
+                <img src ={weatherIconUrl} alt="weather icon" 
                 onError={(e)=>{
-                    e.target.src= weatherIconUrl}}
+                    e.target.src= weatherIcon}}
                     />
                 <p>H:{maxTemp} </p>
                 <p>L:{minTemp} </p>
 
-            </div>
+            </div>  
+        </div>
         )
-
             })
-
             }     
-           
         </div>
     )
 }
