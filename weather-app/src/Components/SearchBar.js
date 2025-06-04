@@ -86,10 +86,10 @@ const fetchFiveDayForecast = ()=>{
             onChange={(e)=>setCity(e.target.value)}
             style={{ borderWidth: "5px" }} 
              />
-            <button className="btn btn-primary"type="submit"
+            <button className="btn btn-light"type="submit"
             //  style={{ borderRadius: "25px" }}
              >
-              SUBMIT
+              <strong>SUBMIT</strong>
             </button>
             <span className="list"></span>
         </form>

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 
+
 // const date converts the timestamp (in seconds) to a JavaScript Date (in milliseconds) why *1000 is being used
 // Then format it into a short, readable string like "Tue, Jun 3"
 // - "en-US" sets the format to U.S. English style
@@ -35,10 +36,11 @@ const FiveDayForecast = ({data})=>{
         });
     })
     .slice(0,5); // gets only the next 5 days of forecasts
+   
 
     return(
         <div className="container-fluid pb-5">
-            <h1 className= "text-center mb-3"> FIVE DAY FORECAST  </h1> 
+            <h1 className= "text-center mb-3 outlined-text"> FIVE DAY FORECAST  </h1> 
         <div className ="d-flex overflow-auto py-3 justify-content-center">
             {dailyWeather.map((day,index)=>{
         const dateString = new Date(day.dt_txt).toLocaleDateString("en-US",{
@@ -53,7 +55,7 @@ const FiveDayForecast = ({data})=>{
         
     
         return(
-            <div key={index} className="card flex-shrink-0 mx-2"
+            <div key={index} className="card flex-shrink-0 mx-2 card border border-dark"
                 style={{width: '12rem'}}>
                 <div className="card-body text-center">
                 <h6> {dateString}   </h6>

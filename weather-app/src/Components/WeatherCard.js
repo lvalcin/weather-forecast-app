@@ -68,7 +68,7 @@ const WeatherCard = ({data}) =>{
                 { weatherDetails && (
                     <p className="text-muted small">{weatherSummary} </p>
                     )}
-                <button className="btn btn-primary"
+                <button className="btn btn-light border-primary"
                 onClick={()=>setWeatherDetails(!weatherDetails)
                 }>
                     { weatherDetails ? "Hide Details" : "More Details"}
