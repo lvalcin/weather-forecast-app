@@ -1,27 +1,23 @@
 import React, {useState} from "react";
 
-const WeatherCard = ({data}) =>{
+
+const CurrentWeather= ({data})=>{
     const [weatherDetails, setWeatherDetails]= useState(false);
-    if (!data || !data.city || !data.list){
-        return <div>No weather data to display.</div>;
-      }
-      return(
-         <div className="d-flex overflow-auto gap-3 py-3 px-2">
-            {/* .slice(0,6) limits the forecast to the next upcoming 6 data list and then maps through them with .map*/}
-     {data.list.slice(0,6).map((forecast,index)=>{
-    const tempInKelvin = forecast.main.temprature;
+        if (!data || !data.main || !data.weather){
+            return <div>No weather data to display.</div>;
+          }
+    const tempInKelvin = data.main.temprature;
     const tempInFahrenheit = ((tempInKelvin - 273.15) * 9/5 + 32).toFixed(1); //converst temp from Kelvin to Fahrenheit
-    const feelsLike = ((forecast.main.temprature_feels_like - 273.15) * 9 / 5 + 32).toFixed(1);
-    const maxTemp =((forecast.main.temprature_max- 273.15) * 9 / 5 + 32).toFixed(1);
-    const minTemp = ((forecast.main.temprature_min- 273.15) * 9 / 5 + 32).toFixed(1);
-    const humidity = forecast.main.humidity
-    const precipitation = forecast.probability_of_precipitation;
-    const wind = forecast.wind;
-    const weatherIcon = forecast.weather?.[0]?.icon;
+    const feelsLike = ((data.main.temprature_feels_like - 273.15) * 9 / 5 + 32).toFixed(1);
+    const maxTemp =((data.main.temprature_max- 273.15) * 9 / 5 + 32).toFixed(1);
+    const minTemp = ((data.main.temprature_min- 273.15) * 9 / 5 + 32).toFixed(1);
+    const humidity = data.main.humidity
+    const precipitation = data.probability_of_precipitation;
+    const wind = data.wind;
+    const weatherIcon = data.weather?.[0]?.icon;
     const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
         console.log(weatherIcon, "WEATHER!!!!!");
-    const weatherDate = new Date(forecast.dt_txt); //converts date string from API data to a JS data object
-        console.log(weatherDate, "WEATHER DATE!!!!");
+    const weatherDate = new Date(data.dt_txt); 
     const date = weatherDate.toLocaleDateString("en-US", 
         {weekday: "long",
         month: "short",
@@ -29,28 +25,23 @@ const WeatherCard = ({data}) =>{
         hour: "numeric",
         minute: "2-digit",
         hour12: true})
-        // toLocaleDateString formats the date (year, month, date, weekday) but not time (hour, minute).
-        // The options specify the format details like full weekday name, short month, numeric day, and 12-hour clock with minutes for AM/PM.
-        // "en-US" formats the date/time in US English style 
-
-    const weatherSummary= `${data.city.name} conditions:
-                        ${data.list[0].weather[0].description} 
+    const weatherSummary= `${data.name} conditions:
+                        ${data.weather[0].description} 
                         with a temperature of ${tempInFahrenheit}°F, 
                         but it feels like ${feelsLike}°F. 
                         The maximum temperature today is ${maxTemp}°F, 
                         and the minimum temperature is ${minTemp}°F. 
                         The humidity level is at ${humidity}%, 
                         with a wind speed of ${wind.speed} m/s. 
-                        There is a ${precipitation}% chance of precipitation.`;
+                        There is a ${precipitation}% chance of precipitation.`
     return(
-        
-            <div key={index} className="card my-4 shadow-sm" 
+        <div className="card my-4 shadow-sm" 
                 style={{width: "18rem", minHeight: "18rem", flexShrink: 0 
                 }}>
             <div className="card-body  d-flex flex-column justify-content-between"
                 style={{ overflowY: "auto" }}>
                 <h6> {date}  </h6>
-                <h1 className="fw-bold text-center">{data.city.name}</h1>
+                <h1 className="fw-bold text-center">{data.name}</h1>
                 {/* {weatherIcon && ( */}
                     <img src={weatherIconUrl} alt="weather icon" 
                     onError={(e)=>{
@@ -59,7 +50,7 @@ const WeatherCard = ({data}) =>{
                 {/* )} */}
             
                 <h2 className="text-center fs-1">{tempInFahrenheit}°F</h2>
-                <p className="text-capitalize fs-5 mb-2">{data.list[0].weather[0].description} </p>
+                <p className="text-capitalize fs-5 mb-2">{data.weather[0].description} </p>
                 <p> <span className="me-5">H:{maxTemp}°F</span> 
                     <span> L: {minTemp}°F </span>
                 </p>
@@ -72,15 +63,9 @@ const WeatherCard = ({data}) =>{
                     { weatherDetails ? "Hide Details" : "More Details"}
                 </button>
             </div>
-            </div>
-        
+
+        </div>
     )
-})} 
-</div>
-)
 }
 
-export default WeatherCard;
-
-
-
+export default CurrentWeather

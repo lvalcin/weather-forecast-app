@@ -3,6 +3,7 @@ import WeatherCard from "./WeatherCard";
 import FiveDayForecast from "./FiveDayForecast";
 import { ThreeHourForecast } from "../assets/Data/data/ThreeHourForecast";
 import { FiveDays } from "../assets/Data/data/FiveDays";
+import CurrentWeather from "./CurrentWeather";
 
 
 
@@ -11,8 +12,36 @@ const SearchBar = ()=> {
 const [city,setCity]= useState("")
 const [weather, setWeather] = useState(null)
 const [fiveDay, setFiveDay] = useState(null)
+const [currentWeather, setCurrentWeather] = useState(null)
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY
 // const apiUrl = process.env.REACT_APP_WEATHER_API_URL
+
+
+const getCurrentWeather=()=>{
+  if (!city) return;
+  const weatherUrl = `https://weather-api167.p.rapidapi.com/api/weather/current?place=${encodeURIComponent(city)}&mode=json&lang=en`
+  
+  fetch(weatherUrl, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "x-rapidapi-host": "weather-api167.p.rapidapi.com",
+      "x-rapidapi-key": apiKey 
+    }
+  })
+    .then((response)=>{
+      if (!response.ok){
+         throw new Error("Failed to fetch current weather");
+      } else {
+      return response.json()
+      }
+    })
+    .then((data)=>{
+      console.log(data, "RIGHT NOW WEATHER !!!!")
+      setCurrentWeather(data)
+    });
+
+}
 
 
 const getWeather=()=>{
@@ -43,7 +72,7 @@ const getWeather=()=>{
 
 const fetchFiveDayForecast = ()=>{ 
     if (!city) return;
-  const weatherUrl = `https://weather-api167.p.rapidapi.com/api/weather/forecast?place=${encodeURIComponent(city)}&cnt=20&units=standard&type=five_day&mode=json&lang=en`
+  const weatherUrl = `https://weather-api167.p.rapidapi.com/api/weather/forecast?place=${encodeURIComponent(city)}&cnt=30&units=standard&&mode=json&lang=en`
   
   fetch(weatherUrl, {
     method: "GET",
@@ -77,6 +106,7 @@ const fetchFiveDayForecast = ()=>{
           console.log(city, "HERE IS THE CITY!!!!")
           getWeather();
           fetchFiveDayForecast ();
+          getCurrentWeather();
           
         }}>
             <input className="form-control mb-3"
@@ -94,6 +124,12 @@ const fetchFiveDayForecast = ()=>{
             <span className="list"></span>
         </form>
       </div>
+
+        {/* bellow div displays the current weather */}
+      <div className="mt-5">
+      {currentWeather && <CurrentWeather data={currentWeather}/>}
+      </div>
+
 
       {/* below div displays current weather card for the next 18 hours */}
       <div className="mt-5"> 
