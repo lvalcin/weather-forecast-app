@@ -23,9 +23,10 @@ const WeatherCard = ({data}) =>{
     const weatherDate = new Date(forecast.dt_txt); //converts date string from API data to a JS data object
         console.log(weatherDate, "WEATHER DATE!!!!");
     const date = weatherDate.toLocaleDateString("en-US", 
-        {weekday: "long",
-        month: "short",
-        day: "numeric",
+        {
+        // weekday: "long",
+        // month: "short",
+        // day: "numeric",
         hour: "numeric",
         minute: "2-digit",
         hour12: true})
@@ -45,12 +46,12 @@ const WeatherCard = ({data}) =>{
     return(
         
             <div key={index} className="card my-4 shadow-sm" 
-                style={{width: "18rem", minHeight: "18rem", flexShrink: 0 
+                style={{width: "15rem", minHeight: "18rem", flexShrink: 0 
                 }}>
             <div className="card-body  d-flex flex-column justify-content-between"
                 style={{ overflowY: "auto" }}>
                 <h6> {date}  </h6>
-                <h1 className="fw-bold text-center">{data.city.name}</h1>
+                {/* <h1 className="fw-bold text-center">{data.city.name}</h1> */}
                 {/* {weatherIcon && ( */}
                     <img src={weatherIconUrl} alt="weather icon" 
                     onError={(e)=>{
@@ -59,18 +60,18 @@ const WeatherCard = ({data}) =>{
                 {/* )} */}
             
                 <h2 className="text-center fs-1">{tempInFahrenheit}°F</h2>
-                <p className="text-capitalize fs-5 mb-2">{data.list[0].weather[0].description} </p>
+                {/* <p className="text-capitalize fs-5 mb-2">{data.list[0].weather[0].description} </p> */}
                 <p> <span className="me-5">H:{maxTemp}°F</span> 
                     <span> L: {minTemp}°F </span>
                 </p>
-                { weatherDetails && (
+                {/* { weatherDetails && (
                     <p className="text-muted small">{weatherSummary} </p>
                     )}
                 <button className="btn btn-light border-primary"
                 onClick={()=>setWeatherDetails(!weatherDetails)
                 }>
                     { weatherDetails ? "Hide Details" : "More Details"}
-                </button>
+                </button> */}
             </div>
             </div>
         

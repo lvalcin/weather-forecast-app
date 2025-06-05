@@ -125,16 +125,20 @@ const fetchFiveDayForecast = ()=>{
         </form>
       </div>
 
+      <div className="d-flex gap-5">
         {/* bellow div displays the current weather */}
-      <div className="mt-5">
-      {currentWeather && <CurrentWeather data={currentWeather}/>}
-      </div>
+        <div className="mt-3">
+          {currentWeather && <CurrentWeather data={currentWeather}/>}
+        </div>
 
-
-      {/* below div displays current weather card for the next 18 hours */}
-      <div className="mt-5"> 
-        {weather && <WeatherCard data={weather}/>}
-      </div>
+        {/* below div displays current weather card for the next 18 hours */}
+        <div className="mt-5" 
+          style= {{overflowX: "auto", maxWidth:"100%", whiteSpace: "nowrap"}}
+          > 
+          <h1 className="text-center">3-Hourly Forecast </h1>
+          {weather && <WeatherCard data={weather}/>}
+        </div>
+      </div>  
 
       {/* below div displays 5 day forecast */}
       <div> 

@@ -35,8 +35,9 @@ const CurrentWeather= ({data})=>{
                         with a wind speed of ${wind.speed} m/s. 
                         There is a ${precipitation}% chance of precipitation.`
     return(
+        <div className="container-fluid d-flex">
         <div className="card my-4 shadow-sm" 
-                style={{width: "18rem", minHeight: "18rem", flexShrink: 0 
+                style={{width: "18rem", minHeight: "15rem", flexShrink: 0 
                 }}>
             <div className="card-body  d-flex flex-column justify-content-between"
                 style={{ overflowY: "auto" }}>
@@ -63,7 +64,7 @@ const CurrentWeather= ({data})=>{
                     { weatherDetails ? "Hide Details" : "More Details"}
                 </button>
             </div>
-
+        </div>
         </div>
     )
 }
