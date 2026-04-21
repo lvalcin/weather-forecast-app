@@ -6,7 +6,10 @@ const WeatherCard = ({data}) =>{
         return <div>No weather data to display.</div>;
       }
       return(
+          <div className="container-fluid">
+            <h1 className="justify-content-center display-6"> 3-Hourly Forecast</h1>
          <div className="d-flex overflow-auto gap-3 py-3 px-2">
+            
             {/* .slice(0,6) limits the forecast to the next upcoming 6 data list and then maps through them with .map*/}
      {data.list.slice(0,6).map((forecast,index)=>{
     const tempInKelvin = forecast.main.temprature;
@@ -44,10 +47,11 @@ const WeatherCard = ({data}) =>{
                         with a wind speed of ${wind.speed} m/s. 
                         There is a ${precipitation}% chance of precipitation.`;
     return(
-        
+                
             <div key={index} className="card my-4 shadow-sm" 
                 style={{width: "15rem", minHeight: "18rem", flexShrink: 0 
                 }}>
+                   
             <div className="card-body  d-flex flex-column justify-content-between"
                 style={{ overflowY: "auto" }}>
                 <h6> {date}  </h6>
@@ -77,6 +81,7 @@ const WeatherCard = ({data}) =>{
         
     )
 })} 
+</div>
 </div>
 )
 }

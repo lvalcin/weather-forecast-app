@@ -135,7 +135,7 @@ const fetchFiveDayForecast = ()=>{
         <div className="mt-5" 
           style= {{overflowX: "auto", maxWidth:"100%", whiteSpace: "nowrap"}}
           > 
-          <h1 className="text-center">3-Hourly Forecast </h1>
+          
           {weather && <WeatherCard data={weather}/>}
         </div>
       </div>  
