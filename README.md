@@ -29,13 +29,13 @@ npm install
 npm start
 ```
 
-##🔮 Future Improvements
+## 🔮 Future Improvements
 -Add 5-day weather forecast
 -Improve UI design and animations
 -Add geolocation (detect user’s current location)
 -Improve loading and error states
 
-##👩🏾‍💻 Author
+## 👩🏾‍💻 Author
 
 Lovnyth Valcin
 GitHub: https://github.com/lvalcin
